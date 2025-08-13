@@ -4,15 +4,15 @@ inventario_tienda = {
     "manzanas": 50,
     "naranjas": 30,
     "platanos": 20,
-    "fresas": 15
+    "fresas": 15,
     "carne": 100,
     "pan": 80,
     "leche": 60,
     "huevos": 40,
-    "queso": 25
+    "queso": 25,
     "arroz": 90,
     "pasta": 70,
-    "aceite": 45
+    "aceite": 45,
     "azucar": 55,
     "sal": 35,
     "cereal": 65,
@@ -36,7 +36,7 @@ while True:
     
     if accion == "agregar":
         producto = input("Ingresa el nombre del producto que deseas agregar: ").lower()
-        if producto in inventario:
+        if producto in inventario_tienda:
             cantidad = int(input(f"¿Cuántas unidades de {producto} quieres? "))
             if producto in carrito:
                 carrito[producto] += cantidad
@@ -52,7 +52,7 @@ while True:
             print("El carrito está vacío.")
         else:
             for producto, cantidad in carrito.items():
-                precio_unitario = inventario[producto]
+                precio_unitario = inventario_tienda[producto]
                 subtotal = precio_unitario * cantidad
                 print(f"- {producto.capitalize()} (x{cantidad}): ${subtotal:.2f}")
         
@@ -60,7 +60,7 @@ while True:
         print("--- Factura de compra ---")
         total_compra = 0
         for producto, cantidad in carrito.items():
-            precio_unitario = inventario[producto]
+            precio_unitario = inventario_tienda[producto]
             subtotal = precio_unitario * cantidad
             print(f"- {producto.capitalize()} (x{cantidad}): ${subtotal:.2f}")
             total_compra += subtotal
