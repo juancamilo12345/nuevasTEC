@@ -22,6 +22,56 @@ inventario_tienda = {
 def mostrar_menu():
     print("¡Bienvenido a nuestra tienda!")
     print("--- Productos disponibles ---")
-    for producto, precio in inventario.items():
+    for producto, precio in inventario_tienda.items():
         print(f"- {producto.capitalize()}: ${precio:.2f}")
     print("-" * 25)
+
+carrito = {}
+total_compra = 0
+
+while True:
+    mostrar_menu()
+    
+    accion = input("¿Qué deseas hacer? (agregar, ver, pagar, salir): ").lower()
+    
+    if accion == "agregar":
+        producto = input("Ingresa el nombre del producto que deseas agregar: ").lower()
+        if producto in inventario:
+            cantidad = int(input(f"¿Cuántas unidades de {producto} quieres? "))
+            if producto in carrito:
+                carrito[producto] += cantidad
+            else:
+                carrito[producto] = cantidad
+            print(f"{cantidad} {producto}(s) agregados al carrito.")
+        else:
+            print("Ese producto no está en el inventario.")
+            
+    elif accion == "ver":
+        print("--- Tu carrito de compras ---")
+        if not carrito:
+            print("El carrito está vacío.")
+        else:
+            for producto, cantidad in carrito.items():
+                precio_unitario = inventario[producto]
+                subtotal = precio_unitario * cantidad
+                print(f"- {producto.capitalize()} (x{cantidad}): ${subtotal:.2f}")
+        
+    elif accion == "pagar":
+        print("--- Factura de compra ---")
+        total_compra = 0
+        for producto, cantidad in carrito.items():
+            precio_unitario = inventario[producto]
+            subtotal = precio_unitario * cantidad
+            print(f"- {producto.capitalize()} (x{cantidad}): ${subtotal:.2f}")
+            total_compra += subtotal
+        print("-" * 25)
+        print(f"Total a pagar: ${total_compra:.2f}")
+        print("¡Gracias por tu compra!")
+        break
+        
+    elif accion == "salir":
+        print("¡Vuelve pronto!")
+        break
+    
+    else:
+        print("Opción no válida. Por favor, elige entre 'agregar', 'ver', 'pagar' o 'salir'.")
